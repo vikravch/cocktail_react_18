@@ -1,13 +1,15 @@
 import React from 'react';
+import {H1} from "../../../general/style/components/buttons";
+import style from './CategoryPage.module.css';
+import {NavCategoryItem} from "../../../general/style/components/items";
 
 const CategoryPage = (props) => {
     return (
         <>
-            <h1>Category page</h1>
-            <button onClick={()=>{props.getCategories()}}>Get categories list</button>
-            <div>{
+            <H1>Category page</H1>
+            <div className={style.categories_container}>{
                 props.categories.map((category)=>{
-                    return <span key={category}>{category}</span>;
+                    return <NavCategoryItem key={category}>{category}</NavCategoryItem>;
                 })
             }</div>
         </>)

@@ -2,7 +2,8 @@ import logo from './logo.svg';
 import './App.css';
 
 import React, {Component} from 'react';
-import {route, Navigation} from "./router";
+import {route} from "./general/navigation/router";
+import Navigation from "./general/navigation/Navigation";
 import {getCategories, getRandomCocktail} from "./features/api";
 import {Cocktail} from "./features/Cocktail";
 // rcc
@@ -15,6 +16,12 @@ class App extends Component {
             categories: []
         }
     }
+
+    componentDidMount() {
+        this.getRandomCocktailApi();
+        this.getCategoriesApi();
+    }
+
     getRandomCocktailApi(){
         getRandomCocktail().then((result)=>{
             console.log(result);
@@ -47,9 +54,6 @@ class App extends Component {
                             this.getRandomCocktailApi()
                         },
                         cocktail: this.state.currentCocktail,
-                        getCategories: ()=>{
-                            this.getCategoriesApi()
-                        },
                         categories: this.state.categories
                     })
                 }
