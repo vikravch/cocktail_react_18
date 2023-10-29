@@ -4,8 +4,9 @@ import './App.css';
 import React, {Component} from 'react';
 import {route} from "./general/navigation/router";
 import Navigation from "./general/navigation/Navigation";
-import {getCategories, getRandomCocktail} from "./features/api";
-import {Cocktail} from "./features/Cocktail";
+import {getByCategory, getCategories, getRandomCocktail} from "./features/api";
+import {Cocktail} from "./features/model/Cocktail";
+import CocktailShort from "./features/model/CocktailShort";
 // rcc
 class App extends Component {
     constructor(props) {
@@ -13,7 +14,8 @@ class App extends Component {
         this.state = {
             page: 'home',
             currentCocktail: new Cocktail({}),
-            categories: []
+            categories: [],
+            categoryCocktails: [],
         }
     }
 
@@ -40,7 +42,14 @@ class App extends Component {
                 categories:categoriesArr});
         })
     }
-
+    getByCategoryApi(categoryName){
+        getByCategory(categoryName).then((result)=>{
+            console.log(result);
+            const resObj = JSON.parse(result);
+            const cocktailList = resObj.drinks.map(item => new CocktailShort(item));
+            this.setState({...this.state, categoryCocktails: cocktailList});
+        })
+    }
     render() {
         return (
             <div>
@@ -54,7 +63,11 @@ class App extends Component {
                             this.getRandomCocktailApi()
                         },
                         cocktail: this.state.currentCocktail,
-                        categories: this.state.categories
+                        categories: this.state.categories,
+                        getByCategory: (categoryName)=>{
+                            this.getByCategoryApi(categoryName)
+                        },
+                        categoryCocktails: this.state.categoryCocktails
                     })
                 }
             </div>
@@ -63,4 +76,3 @@ class App extends Component {
 }
 
 export default App;
-
