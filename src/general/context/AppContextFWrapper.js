@@ -1,0 +1,64 @@
+import React, {useEffect, useState} from 'react';
+import {AppContext} from "./context";
+import {getByCategory, getCategories, getRandomCocktail} from "../../features/api";
+import CocktailShort from "../../features/CocktailShort";
+import {Cocktail} from "../../features/model/Cocktail";
+
+const AppContextFWrapper = ({children}) => {
+    const [page, setPage] = useState('home');
+    const [cocktail, setCocktail] = useState();
+    const [categories, setCategories] = useState([]);
+    const [categoryCocktails, setCategoryCocktails] = useState([]);
+
+    function getRandomCocktailApi(){
+        getRandomCocktail().then((result)=>{
+            console.log(result);
+            const resObj = JSON.parse(result);
+            const newCocktail = new Cocktail(resObj.drinks[0]);
+            setCocktail(newCocktail);
+        })
+    }
+    function getCategoriesApi(){
+        getCategories().then((result)=>{
+            console.log(result);
+            const resObj = JSON.parse(result);
+            const categoriesArr = resObj.drinks.map((item)=>item.strCategory)
+            setCategories(categoriesArr);
+        })
+    }
+    function getByCategoryApi(categoryName){
+        getByCategory(categoryName).then((result)=>{
+            console.log(result);
+            const resObj = JSON.parse(result);
+            const cocktailList = resObj.drinks.map(item => new CocktailShort(item));
+            setCategoryCocktails(cocktailList);
+        })
+    }
+
+    useEffect(()=>{
+        getRandomCocktailApi();
+        getCategoriesApi();
+    }, []);
+
+    return (
+        <AppContext.Provider
+            value={{
+                page: page,
+                changePage: (newPage)=>{setPage(newPage)},
+                getRandomCocktail: ()=>{
+                    getRandomCocktailApi()
+                },
+                cocktail: cocktail,
+                categories: categories,
+                getByCategory: (categoryName)=>{
+                    getByCategoryApi(categoryName)
+                },
+                categoryCocktails: categoryCocktails
+            }}
+        >
+            {children}
+        </AppContext.Provider>
+    );
+};
+
+export default AppContextFWrapper;
