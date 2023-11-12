@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {AppContext} from "./context";
 import {getByCategory, getCategories, getRandomCocktail} from "../../features/api";
-import CocktailShort from "../../features/CocktailShort";
 import {Cocktail} from "../../features/model/Cocktail";
+import CocktailShort from "../../features/model/CocktailShort";
 
 const AppContextFWrapper = ({children}) => {
     const [page, setPage] = useState('home');
