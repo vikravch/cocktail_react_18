@@ -1,17 +1,16 @@
-import React, {useContext} from "react";
+import React from "react";
 import * as Routes from './router';
 import style from './Navigation.module.css';
 import './Navigation.css';
-import {AppContext} from "../context/context";
+import {Link} from "react-router-dom";
+import {useLocation} from "react-router-dom/cjs/react-router-dom";
 function Navigation(){
-    const context = useContext(AppContext);
+    const {pathname} = useLocation();
     return (
         <div className={style.nav_container}>
-                        <span className={'item_nav'}
-                              onClick={()=>{context.changePage(Routes.HOME)}}>Home</span>
-            <span className={'item_nav'}
-                  onClick={()=>{context.changePage(Routes.CATEGORY)}}>Category</span>
-            <span> Current page - {context.page}</span>
+            <Link className={'item_nav'} to={`/${Routes.HOME}`}>Home</Link>
+            <Link className={'item_nav'} to={`/${Routes.CATEGORY}`}>Category</Link>
+            <span> Current page - {pathname}</span>
         </div>
     )
 }
