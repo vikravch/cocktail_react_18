@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import {Button, H1} from "../../../general/style/components/buttons";
 import {AppContext} from "../../../general/context/context";
 import * as Icons from "react-bootstrap-icons";
-import CocktailComponent from "./component/CocktailComponent";
+import CocktailComponent from "../../../general/component/CocktailComponent";
 
 const HomePage = () => {
     const {getRandomCocktail, cocktail} = useContext(AppContext);

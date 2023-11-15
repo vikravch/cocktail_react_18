@@ -2,33 +2,45 @@ import React, {useContext} from 'react';
 import {H1} from "../../../general/style/components/buttons";
 import style from './CategoryPage.module.css';
 import {NavCategoryItem} from "../../../general/style/components/items";
-import CocktailShort from "../../CocktailShort";
+import CocktailShort from "../../../general/component/CocktailShort";
 import {AppContext} from "../../../general/context/context";
 
 const CategoryPage = () => {
     const context = useContext(AppContext);
     return (
-        <>
-            <H1>Category page</H1>
-            <div className={style.categories_container}>{
-                context.categories.map((category)=>{
-                    return <NavCategoryItem
-                        key={category}
-                        onClick={()=>{context.getByCategory(category)}}>
-                        {category}
-                    </NavCategoryItem>;
-                })
-            }</div>
-            <div>
+        <div className={'container'}>
+            <H1>Select category</H1>
+            <div className="row">
+                <nav className="navbar navbar-expand-lg bg-body-tertiary">
+                <ul className="navbar-nav">
+                    {
+                        context.categories.map((category) => {
+                            return <li className="nav-item" role="button">
+                                <a className="nav-link"
+                                key={category}
+                                onClick={() => {
+                                    context.getByCategory(category)
+                                }}>
+                                {category}
+                            </a>
+                            </li>
+                        })
+                    }
+                </ul>
+                </nav>
+            </div>
+            <div className={'row'}>
                 {
-                    context.categoryCocktails.map((cocktailShort, index)=>{
-                        return <CocktailShort key={index} name={cocktailShort.name}
-                                              thumb={cocktailShort.thumb}/>
+                    context.categoryCocktails.map((cocktailShort, index) => {
+                        return <CocktailShort
+                            key={index}
+                            data={cocktailShort}
+                        />
                     })
                 }
             </div>
-        </>
-        )
+        </div>
+    )
 }
 
-export default CategoryPage;
+    export default CategoryPage;

@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {useLocation} from "react-router-dom/cjs/react-router-dom";
-import CocktailComponent from "../../home_page/presentation/component/CocktailComponent";
+import CocktailComponent from "../../../general/component/CocktailComponent";
 import {AppContext} from "../../../general/context/context";
 
 function CocktailPage() {

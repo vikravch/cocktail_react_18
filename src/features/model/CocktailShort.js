@@ -11,6 +11,9 @@ export default class CocktailShort{
         this._thumb = data.strDrinkThumb+'/preview';
         this._id = data.idDrink;
     };
+    get id(){
+        return this._id;
+    }
     get name(){
         return this._name;
     }
