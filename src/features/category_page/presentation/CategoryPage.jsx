@@ -1,12 +1,12 @@
 import React, {useContext} from 'react';
 import {H1} from "../../../general/style/components/buttons";
-import style from './CategoryPage.module.css';
-import {NavCategoryItem} from "../../../general/style/components/items";
 import CocktailShort from "../../../general/component/CocktailShort";
 import {AppContext} from "../../../general/context/context";
+import {useHistory} from "react-router-dom";
 
 const CategoryPage = () => {
     const context = useContext(AppContext);
+    const history = useHistory();
     return (
         <div className={'container'}>
             <H1>Select category</H1>
@@ -15,13 +15,17 @@ const CategoryPage = () => {
                 <ul className="navbar-nav">
                     {
                         context.categories.map((category) => {
-                            return <li className="nav-item" role="button">
+                            return <li className="nav-item" role="button"
+                                onClick={()=>{
+                                    history.push('/category/'+category.slug);
+                                }}
+                            >
                                 <a className="nav-link"
-                                key={category}
-                                onClick={() => {
+                                key={category.slug}
+                                /*onClick={() => {
                                     context.getByCategory(category)
-                                }}>
-                                {category}
+                                }}*/>
+                                {category.name}
                             </a>
                             </li>
                         })

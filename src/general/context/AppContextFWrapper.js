@@ -3,12 +3,28 @@ import {AppContext} from "./context";
 import {getByCategory, getCategories, getCocktail, getRandomCocktail} from "../../features/api";
 import {Cocktail} from "../../features/model/Cocktail";
 import CocktailShort from "../../features/model/CocktailShort";
+import {useLocation} from "react-router-dom/cjs/react-router-dom";
 
 const AppContextFWrapper = ({children}) => {
     const [page, setPage] = useState('home');
     const [cocktail, setCocktail] = useState();
     const [categories, setCategories] = useState([]);
     const [categoryCocktails, setCategoryCocktails] = useState([]);
+
+    const {pathname} = useLocation();
+    useEffect(()=>{
+        if(pathname.startsWith('/category')){
+            const categorySlug = pathname.split('/')[2];
+            if(categorySlug){
+                const categoryName = categories.find(
+                    (item)=> item.slug === categorySlug
+                ).name;
+                if(categoryName){
+                    getByCategoryApi(categoryName);
+                }
+            }
+        }
+    },[pathname]);
 
     function getRandomCocktailApi(){
         getRandomCocktail().then((result)=>{
@@ -22,10 +38,20 @@ const AppContextFWrapper = ({children}) => {
         getCategories().then((result)=>{
             console.log(result);
             const resObj = JSON.parse(result);
-            const categoriesArr = resObj.drinks.map((item)=>item.strCategory)
+            const categoriesArr = resObj.drinks.map(
+                (item)=> {
+                    const withoutSlash = item.strCategory.replace(" / ","_");
+                    return {
+                        name: item.strCategory,
+                        slug: withoutSlash.toLowerCase()
+                    }}
+            )
             setCategories(categoriesArr);
         })
     }
+    /*
+        { name:"Category/name", slug:"category_name"}
+    * */
     function getByCategoryApi(categoryName){
         getByCategory(categoryName).then((result)=>{
             console.log(result);
