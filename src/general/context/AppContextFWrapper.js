@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {AppContext} from "./context";
-import {getByCategory, getCategories, getRandomCocktail} from "../../features/api";
+import {getByCategory, getCategories, getCocktail, getRandomCocktail} from "../../features/api";
 import {Cocktail} from "../../features/model/Cocktail";
 import CocktailShort from "../../features/model/CocktailShort";
 
@@ -34,6 +34,15 @@ const AppContextFWrapper = ({children}) => {
             setCategoryCocktails(cocktailList);
         })
     }
+    function getCocktailByIdApi(cocktailId){
+        getCocktail(cocktailId).then((result)=>{
+            console.log(result);
+            const resObj = JSON.parse(result);
+            console.log("Obj - "+resObj);
+            const newCocktail = new Cocktail(resObj.drinks[0]);
+            setCocktail(newCocktail);
+        })
+    }
 
     useEffect(()=>{
         getRandomCocktailApi();
@@ -53,7 +62,8 @@ const AppContextFWrapper = ({children}) => {
                 getByCategory: (categoryName)=>{
                     getByCategoryApi(categoryName)
                 },
-                categoryCocktails: categoryCocktails
+                categoryCocktails: categoryCocktails,
+                getCocktailById: getCocktailByIdApi
             }}
         >
             {children}

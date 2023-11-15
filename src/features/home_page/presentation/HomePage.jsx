@@ -2,6 +2,7 @@ import React, {useContext} from 'react';
 import {Button, H1} from "../../../general/style/components/buttons";
 import {AppContext} from "../../../general/context/context";
 import * as Icons from "react-bootstrap-icons";
+import CocktailComponent from "./component/CocktailComponent";
 
 const HomePage = () => {
     const {getRandomCocktail, cocktail} = useContext(AppContext);
@@ -12,8 +13,7 @@ const HomePage = () => {
                 <Button className="btn btn-success" onClick={getRandomCocktail}>
                     <Icons.ArrowClockwise size={20}/> Get random cocktail
                 </Button>
-                <h3>{cocktail.name}</h3>
-                <img src={cocktail.imageURL+'/preview'}/>
+                <CocktailComponent cocktail={cocktail}/>
             </>
         )
     } else {

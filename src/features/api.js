@@ -25,3 +25,13 @@ export const getByCategory = async (categoryName)=>{
         requestOptions);
     return await response.text();
 }
+// www.thecocktaildb.com/api/json/v1/1/lookup.php?i=11007
+export const getCocktail = async (id)=>{
+    const requestOptions = {
+        method: 'GET',
+        redirect: 'follow',
+    };
+    const response = await fetch(BASE_URL+"/lookup.php?i="+id,
+        requestOptions);
+    return await response.text();
+}
