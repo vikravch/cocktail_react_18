@@ -3,7 +3,7 @@ import {AppContext} from "./context";
 import {getByCategory, getCategories, getCocktail, getRandomCocktail} from "../../features/api";
 import {Cocktail} from "../../features/model/Cocktail";
 import CocktailShort from "../../features/model/CocktailShort";
-import {useLocation} from "react-router-dom/cjs/react-router-dom";
+import {useLocation} from "react-router-dom";
 
 const AppContextFWrapper = ({children}) => {
     const [page, setPage] = useState('home');
@@ -13,14 +13,16 @@ const AppContextFWrapper = ({children}) => {
 
     const {pathname} = useLocation();
     useEffect(()=>{
+
         if(pathname.startsWith('/category')){
             const categorySlug = pathname.split('/')[2];
+            console.log(categorySlug);
             if(categorySlug){
-                const categoryName = categories.find(
+                const category = categories.find(
                     (item)=> item.slug === categorySlug
-                ).name;
-                if(categoryName){
-                    getByCategoryApi(categoryName);
+                );
+                if(category){
+                    getByCategoryApi(category.name);
                 }
             }
         }
@@ -41,9 +43,10 @@ const AppContextFWrapper = ({children}) => {
             const categoriesArr = resObj.drinks.map(
                 (item)=> {
                     const withoutSlash = item.strCategory.replace(" / ","_");
+                    const withoutSpaces = withoutSlash.replace(" ","");
                     return {
                         name: item.strCategory,
-                        slug: withoutSlash.toLowerCase()
+                        slug: withoutSpaces.toLowerCase()
                     }}
             )
             setCategories(categoriesArr);

@@ -2,11 +2,11 @@ import React, {useContext} from 'react';
 import {H1} from "../../../general/style/components/buttons";
 import CocktailShort from "../../../general/component/CocktailShort";
 import {AppContext} from "../../../general/context/context";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 const CategoryPage = () => {
     const context = useContext(AppContext);
-    const history = useHistory();
+    const navigate = useNavigate();
     return (
         <div className={'container'}>
             <H1>Select category</H1>
@@ -17,7 +17,7 @@ const CategoryPage = () => {
                         context.categories.map((category) => {
                             return <li className="nav-item" role="button"
                                 onClick={()=>{
-                                    history.push('/category/'+category.slug);
+                                    navigate('/category/'+category.slug);
                                 }}
                             >
                                 <a className="nav-link"

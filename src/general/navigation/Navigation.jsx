@@ -3,7 +3,7 @@ import * as Routes from './router';
 import style from './Navigation.module.css';
 import './Navigation.css';
 import {Link} from "react-router-dom";
-import {useLocation} from "react-router-dom/cjs/react-router-dom";
+import {useLocation} from "react-router-dom";
 function Navigation(){
     const {pathname} = useLocation();
     return (

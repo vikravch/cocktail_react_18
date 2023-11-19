@@ -1,14 +1,14 @@
 import React from 'react';
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 // rsf
 function CocktailShort(props) {
-    const history = useHistory();
+    const navigate = useNavigate();
     return (
         <div className="col-3 p-2">
             <div role="button" className="card" onClick={() => {
                 // do some work ...
-                history.push('/cocktail?id=' + props.data.id);
+                navigate('/cocktail?id=' + props.data.id);
             }}> {/* => <a> */}
                 <img src={props.data.thumb} className="card-img-top"></img>
                 <div className="card-body">
