@@ -1,5 +1,5 @@
 import {createContext} from "react";
-import {Cocktail} from "../../features/model/Cocktail";
+import {Cocktail} from "../../cocktails/domain/model/Cocktail";
 
 export const AppContext = createContext({
     page: 'home',

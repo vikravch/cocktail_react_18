@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
-import {H1} from "../../../general/style/components/buttons";
-import CocktailShort from "../../../general/component/CocktailShort";
-import {AppContext} from "../../../general/context/context";
+import {H1} from "../../../../general/style/components/buttons";
+import CocktailShort from "../../../../general/component/CocktailShort";
+import {AppContext} from "../../../../general/context/context";
 import {useNavigate} from "react-router-dom";
 
 const CategoryPage = () => {

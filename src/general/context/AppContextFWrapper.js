@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {AppContext} from "./context";
-import {getByCategory, getCategories, getCocktail, getRandomCocktail} from "../../features/api";
-import {Cocktail} from "../../features/model/Cocktail";
-import CocktailShort from "../../features/model/CocktailShort";
+import {getByCategory, getCategories, getCocktail, getRandomCocktail} from "../../cocktails/data/server/api";
+import {Cocktail} from "../../cocktails/domain/model/Cocktail";
+import CocktailShort from "../../cocktails/domain/model/CocktailShort";
 import {useLocation} from "react-router-dom";
+import convertCategoryArray from "../../cocktails/domain/use_cases/convertCategoryArray";
 
 const AppContextFWrapper = ({children}) => {
     const [page, setPage] = useState('home');
@@ -40,15 +41,7 @@ const AppContextFWrapper = ({children}) => {
         getCategories().then((result)=>{
             console.log(result);
             const resObj = JSON.parse(result);
-            const categoriesArr = resObj.drinks.map(
-                (item)=> {
-                    const withoutSlash = item.strCategory.replace(" / ","_");
-                    const withoutSpaces = withoutSlash.replace(" ","");
-                    return {
-                        name: item.strCategory,
-                        slug: withoutSpaces.toLowerCase()
-                    }}
-            )
+            const categoriesArr = convertCategoryArray(resObj.drinks);
             setCategories(categoriesArr);
         })
     }

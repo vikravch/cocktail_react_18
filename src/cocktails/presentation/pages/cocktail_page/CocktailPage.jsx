@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {useLocation} from "react-router-dom";
-import CocktailComponent from "../../../general/component/CocktailComponent";
-import {AppContext} from "../../../general/context/context";
+import CocktailComponent from "../../../../general/component/CocktailComponent";
+import {AppContext} from "../../../../general/context/context";
 
 function CocktailPage() {
     const {search} = useLocation();
