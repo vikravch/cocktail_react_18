@@ -3,9 +3,13 @@ import {H1} from "../../../../general/style/components/buttons";
 import CocktailShort from "../../../../general/component/CocktailShort";
 import {AppContext} from "../../../../general/context/context";
 import {useNavigate} from "react-router-dom";
+import {useSelector} from "react-redux";
+import {store} from "../../../../general/redux/store";
 
 const CategoryPage = () => {
     const context = useContext(AppContext);
+    const {categories} = useSelector(store => store);
+
     const navigate = useNavigate();
     return (
         <div className={'container'}>
@@ -14,7 +18,7 @@ const CategoryPage = () => {
                 <nav className="navbar navbar-expand-lg bg-body-tertiary">
                 <ul className="navbar-nav">
                     {
-                        context.categories.map((category) => {
+                        categories.map((category) => {
                             return <li className="nav-item" role="button"
                                 onClick={()=>{
                                     navigate('/category/'+category.slug);

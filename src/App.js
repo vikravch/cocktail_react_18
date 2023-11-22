@@ -6,10 +6,10 @@ import AppContextFWrapper from "./general/context/AppContextFWrapper";
 
 function App() {
     return (
-        <AppContextFWrapper>
+        <>
             <Navigation/>
             <Router/>
-        </AppContextFWrapper>
+        </>
     );
 }
 
