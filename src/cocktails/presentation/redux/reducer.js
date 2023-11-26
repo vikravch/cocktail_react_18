@@ -4,7 +4,8 @@ function cocktailReducer(state = {
     cocktailRandom: undefined,
     cocktailDetailed: undefined,
     categories: [],
-    categoryCocktails: []
+    categoryCocktails: [],
+    errorMessage: undefined
 }, action) {
     switch (action.type){
         case Actions.SET_COCKTAIL_RANDOM:
@@ -15,6 +16,8 @@ function cocktailReducer(state = {
             return {...state, categories: action.payload};
         case Actions.SET_CATEGORY_COCKTAILS:
             return {...state, categoryCocktails: action.payload};
+        case Actions.SET_ERROR_MESSAGE:
+            return {...state, errorMessage: action.payload};
         default: return state;
     }
 }

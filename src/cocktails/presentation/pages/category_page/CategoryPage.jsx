@@ -1,45 +1,53 @@
 import React, {useContext} from 'react';
 import {H1} from "../../../../general/style/components/buttons";
 import CocktailShort from "../../../../general/component/CocktailShort";
-import {AppContext} from "../../../../general/context/context";
 import {useNavigate} from "react-router-dom";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {store} from "../../../../general/redux/store";
+import {getByCategoryAction} from "../../redux/asyncActions";
+import {Alert} from "react-bootstrap";
 
 const CategoryPage = () => {
-    const context = useContext(AppContext);
-    const {categories} = useSelector(store => store);
+    const categories = useSelector(store => store.categories);
+    const categoryCocktails = useSelector(store => store.categoryCocktails);
+    const dispatch = useDispatch();
 
     const navigate = useNavigate();
+
+    const error = useSelector(store => store.errorMessage);
+    if (error) {
+        return <Alert>{error}</Alert>
+    }
+
     return (
         <div className={'container'}>
             <H1>Select category</H1>
             <div className="row">
                 <nav className="navbar navbar-expand-lg bg-body-tertiary">
-                <ul className="navbar-nav">
-                    {
-                        categories.map((category) => {
-                            return <li className="nav-item" role="button"
-                                onClick={()=>{
-                                    navigate('/category/'+category.slug);
-                                }}
-                            >
-                                <a className="nav-link"
-                                key={category.slug}
-                                /*onClick={() => {
-                                    context.getByCategory(category)
-                                }}*/>
-                                {category.name}
-                            </a>
-                            </li>
-                        })
-                    }
-                </ul>
+                    <ul className="navbar-nav">
+                        {
+                            categories.map((category) => {
+                                return <li className="nav-item" role="button"
+                                           onClick={() => {
+                                               navigate('/category/' + category.slug);
+                                           }}
+                                           key={category.slug}
+                                >
+                                    <a className="nav-link"
+                                        onClick={() => {
+                                            dispatch(getByCategoryAction(category.name));
+                                        }}>
+                                        {category.name}
+                                    </a>
+                                </li>
+                            })
+                        }
+                    </ul>
                 </nav>
             </div>
             <div className={'row'}>
                 {
-                    context.categoryCocktails.map((cocktailShort, index) => {
+                    categoryCocktails.map((cocktailShort, index) => {
                         return <CocktailShort
                             key={index}
                             data={cocktailShort}
@@ -51,4 +59,4 @@ const CategoryPage = () => {
     )
 }
 
-    export default CategoryPage;
+export default CategoryPage;
