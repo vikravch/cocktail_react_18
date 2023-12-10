@@ -1,8 +1,10 @@
-import {applyMiddleware, createStore} from "redux";
-import cocktailReducer from "../../cocktails/presentation/redux/reducer";
-import thunk from "redux-thunk";
 import {logger} from "redux-logger";
+import {configureStore} from "@reduxjs/toolkit";
+import reducer from "../../cocktails/presentation/redux/sliceReducer";
 
-export const store = createStore(
-    cocktailReducer, applyMiddleware(thunk, logger)
-);
+export const store = configureStore({
+    reducer: reducer,
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware().concat(logger),
+    devTools: process.env.NODE_ENV !== 'production',
+});
