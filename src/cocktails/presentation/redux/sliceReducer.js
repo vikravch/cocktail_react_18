@@ -1,5 +1,9 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {getByCategoryAction, getCategoriesAction, getCocktailByIdAction, getRandomCocktailAction} from "./asyncActions";
+import {Cocktail} from "../../domain/model/Cocktail";
+import convertCategoryArray from "../../domain/use_cases/convertCategoryArray";
+import CocktailShort from "../../domain/model/CocktailShort";
+import {getCocktail} from "../../data/server/api";
 
 const reducer = createSlice(
     {
@@ -32,28 +36,35 @@ const reducer = createSlice(
             builder.addCase(getRandomCocktailAction.fulfilled,
                 (state, action) => {
                     state.errorMessage = undefined;
-                    state.cocktailRandom = action.payload;
+                    console.log("createAsyncThunk - "+action.payload);
+                    const resObj = JSON.parse(action.payload);
+                    state.cocktailRandom = new Cocktail(resObj.drinks[0]);
                 }).addCase(getCategoriesAction.fulfilled,
                 (state, action) => {
                     state.errorMessage = undefined;
-                    state.categories = action.payload;
+                    const resObj = JSON.parse(action.payload);
+                    state.categories = convertCategoryArray(resObj.drinks);
                 }).addCase(getCocktailByIdAction.fulfilled,
                 (state, action) => {
+                    const resObj = JSON.parse(action.payload);
                     state.errorMessage = undefined;
-                    state.cocktailDetailed = action.payload;
+                    state.cocktailDetailed = new Cocktail(resObj.drinks[0]);
                 }).addCase(getByCategoryAction.fulfilled,
                 (state, action) => {
+                    const resObj = JSON.parse(action.payload);
+                    const cocktailList = resObj.drinks.map(item => new CocktailShort(item));
                     state.errorMessage = undefined;
-                    state.categoryCocktails = action.payload;
+                    state.categoryCocktails = cocktailList;
                 })
-                /*.addCase((
-                    getRandomCocktailAction.rejected,
-                    getCategoriesAction.rejected,
-                    getCocktailByIdAction.rejected
+                .addCase((
+                        getRandomCocktailAction.rejected,
+                            getCategoriesAction.rejected,
+                            getCocktailByIdAction.rejected,
+                            getByCategoryAction.rejected
                 ),
                 (state, action) => {
                     state.errorMessage = action.error.message;
-                })*/
+                })
         }
     }
 );
