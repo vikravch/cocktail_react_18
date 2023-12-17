@@ -1,0 +1,4 @@
+npm i typescript
+npm audit fix --force
+tsc --init
+npm install -D @types/node

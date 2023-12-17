@@ -3,7 +3,6 @@ import {getByCategoryAction, getCategoriesAction, getCocktailByIdAction, getRand
 import {Cocktail} from "../../domain/model/Cocktail";
 import convertCategoryArray from "../../domain/use_cases/convertCategoryArray";
 import CocktailShort from "../../domain/model/CocktailShort";
-import {getCocktail} from "../../data/server/api";
 
 const reducer = createSlice(
     {
