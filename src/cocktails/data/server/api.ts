@@ -1,14 +1,14 @@
 const BASE_URL = 'https://www.thecocktaildb.com/api/json/v1/1';
-export const getRandomCocktail = async () => {
-    const requestOptions = {
+export const getRandomCocktail = async (): Promise<string> => {
+    const requestOptions: RequestInit = {
         method: 'GET',
         redirect: 'follow',
     };
     const response = await fetch(BASE_URL+"/random.php", requestOptions);
     return await response.text();
 };
-export const getCategories = async ()=>{
-    const requestOptions = {
+export const getCategories = async (): Promise<string>=>{
+    const requestOptions: RequestInit = {
         method: 'GET',
         redirect: 'follow',
     };
@@ -16,8 +16,8 @@ export const getCategories = async ()=>{
     return await response.text();
 }
 // www.thecocktaildb.com/api/json/v1/1/filter.php?c=Ordinary_Drink
-export const getByCategory = async (categoryName)=>{
-    const requestOptions = {
+export const getByCategory = async (categoryName: string): Promise<string>=>{
+    const requestOptions: RequestInit = {
         method: 'GET',
         redirect: 'follow',
     };
@@ -26,8 +26,8 @@ export const getByCategory = async (categoryName)=>{
     return await response.text();
 }
 // www.thecocktaildb.com/api/json/v1/1/lookup.php?i=11007
-export const getCocktail = async (id)=>{
-    const requestOptions = {
+export const getCocktail = async (id: string): Promise<string>=>{
+    const requestOptions: RequestInit = {
         method: 'GET',
         redirect: 'follow',
     };

@@ -1,5 +1,15 @@
+import {CocktailServer} from "../../data/type/DataTypes";
+
 export class Cocktail {
-    constructor(data) {
+    private readonly _id: string;
+    private readonly _name: string;
+    private readonly _category: string;
+    private readonly _alcoholic: string;
+    private readonly _glassType: string;
+    private readonly _instructions: string;
+    private readonly _imageURL: string;
+
+    constructor(data: CocktailServer) {
         this._id = data.idDrink || '';
         this._name = data.strDrink || '';
         this._category = data.strCategory || '';

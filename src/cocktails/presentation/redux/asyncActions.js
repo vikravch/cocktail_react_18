@@ -1,8 +1,4 @@
-//import {setCategories, setCategoryCocktails, setDetailedCocktail, setErrorMessage, setRandomCocktail} from "./actions";
-import {Cocktail} from "../../domain/model/Cocktail";
-import convertCategoryArray from "../../domain/use_cases/convertCategoryArray";
 import {getByCategory, getCategories, getCocktail, getRandomCocktail} from "../../data/server/api";
-import CocktailShort from "../../domain/model/CocktailShort";
 import {createAsyncThunk} from "@reduxjs/toolkit";
 
 export const getRandomCocktailAction =

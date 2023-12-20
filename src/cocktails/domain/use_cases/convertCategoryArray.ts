@@ -1,5 +1,9 @@
 // item => {strCategory: " Category "}
-export default function convertCategoryArray(categoryStrArray){
+import {CategoryServer} from "../../data/type/DataTypes";
+
+export default function convertCategoryArray(
+    categoryStrArray: CategoryServer[]
+): CategoryPresentation[]{
     if(!categoryStrArray) return [];
     const categoriesArr = categoryStrArray.map(
         (item)=> {
@@ -11,4 +15,9 @@ export default function convertCategoryArray(categoryStrArray){
             }}
     )
     return categoriesArr;
+}
+
+export type CategoryPresentation = {
+    name: string,
+    slug: string
 }

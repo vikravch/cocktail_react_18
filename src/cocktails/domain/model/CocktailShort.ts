@@ -1,12 +1,10 @@
-/*
- {
-            "strDrink": "3-Mile Long Island Iced Tea",
-            "strDrinkThumb": "https://www.thecocktaildb.com/images/media/drink/rrtssw1472668972.jpg",
-            "idDrink": "15300"
-        },
- */
+import {ShortCocktailServer} from "../../data/type/DataTypes";
+
 export default class CocktailShort{
-    constructor(data) { // data === json from server
+    private readonly _name: string;
+    private readonly _thumb: string;
+    private readonly _id: string;
+    constructor(data: ShortCocktailServer) { // data === json from server
         this._name = data.strDrink;
         this._thumb = data.strDrinkThumb+'/preview';
         this._id = data.idDrink;
