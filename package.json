@@ -22,7 +22,8 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.4.2",
     "styled-components": "^6.1.0",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "@types/redux-logger": "^3.0.12"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -47,5 +48,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/redux-logger": "^3.0.12"
   }
 }

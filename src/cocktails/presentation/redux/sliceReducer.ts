@@ -1,20 +1,30 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {getByCategoryAction, getCategoriesAction, getCocktailByIdAction, getRandomCocktailAction} from "./asyncActions";
 import {Cocktail} from "../../domain/model/Cocktail";
-import convertCategoryArray from "../../domain/use_cases/convertCategoryArray";
+import convertCategoryArray, {CategoryPresentation} from "../../domain/use_cases/convertCategoryArray";
 import CocktailShort from "../../domain/model/CocktailShort";
 import {getCocktail} from "../../data/server/api";
+import {ShortCocktailServer} from "../../data/type/DataTypes";
+
+export type ReducerType = {
+    cocktailRandom: Cocktail | undefined,
+    cocktailDetailed: Cocktail | undefined,
+    categories: CategoryPresentation[],
+    categoryCocktails: CocktailShort[],
+    errorMessage: string | undefined
+}
+const initialState: ReducerType = {
+    cocktailRandom: undefined,
+    cocktailDetailed: undefined,
+    categories: [],
+    categoryCocktails: [],
+    errorMessage: undefined
+}
 
 const reducer = createSlice(
     {
         name: 'cocktail',
-        initialState: {
-            cocktailRandom: undefined,
-            cocktailDetailed: undefined,
-            categories: [],
-            categoryCocktails: [],
-            errorMessage: undefined
-        },
+        initialState: initialState,
         reducers: {
             setRandomCocktail(state, action) {
                 state.cocktailRandom = action.payload;
@@ -52,7 +62,7 @@ const reducer = createSlice(
                 }).addCase(getByCategoryAction.fulfilled,
                 (state, action) => {
                     const resObj = JSON.parse(action.payload);
-                    const cocktailList = resObj.drinks.map(item => new CocktailShort(item));
+                    const cocktailList = resObj.drinks.map((item: ShortCocktailServer) => new CocktailShort(item));
                     state.errorMessage = undefined;
                     state.categoryCocktails = cocktailList;
                 })

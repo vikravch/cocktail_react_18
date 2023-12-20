@@ -1,8 +1,12 @@
 import React from 'react';
 import {useNavigate} from "react-router-dom";
+import CocktailShortType from "../../cocktails/domain/model/CocktailShort";
 
+type Props = {
+    data: CocktailShortType
+}
 // rsf
-function CocktailShort(props) {
+function CocktailShort(props: Props) {
     const navigate = useNavigate();
     return (
         <div className="col-3 p-2">

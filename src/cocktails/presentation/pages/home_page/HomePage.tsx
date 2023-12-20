@@ -5,17 +5,21 @@ import CocktailComponent from "../../../../general/component/CocktailComponent";
 import {useDispatch, useSelector} from "react-redux";
 import {getCategoriesAction, getRandomCocktailAction} from "../../redux/asyncActions";
 import {Alert} from "react-bootstrap";
+import {Cocktail} from "../../../domain/model/Cocktail";
+import {ReducerType} from "../../redux/sliceReducer";
+import {AppDispatch} from "../../../../general/redux/store";
+
 
 const HomePage = () => {
-    const dispatch = useDispatch();
-    const cocktail = useSelector(store => store.cocktailRandom);
+    const dispatch = useDispatch<AppDispatch>();
+    const cocktail = useSelector<ReducerType, Cocktail|undefined>(store => store.cocktailRandom);
 
     useEffect(()=>{
         dispatch(getRandomCocktailAction());
         dispatch(getCategoriesAction());
     },[]);
 
-    const error = useSelector(store => store.errorMessage);
+    const error = useSelector<ReducerType, string|undefined>(store => store.errorMessage);
     if (error) {
         return <Alert>{error}</Alert>
     }

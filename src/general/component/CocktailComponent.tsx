@@ -1,8 +1,13 @@
 import React from 'react';
 import * as Icons from "react-bootstrap-icons";
+// @ts-ignore
 import style from "./CocktailComponent.module.css";
+import {Cocktail} from "../../cocktails/domain/model/Cocktail";
 
-function CocktailComponent(props) {
+type Props = {
+    cocktail: Cocktail
+}
+function CocktailComponent(props: Props) {
     return (
         <div className="container">
             <div className="row">
